@@ -4,17 +4,24 @@ import { IoHome } from "react-icons/io5";
 import SelectList from '../components/ui/SelectList';
 import { useState } from 'react';
 import UnderlineEffect from '../components/ui/UnderlineEffect';
+import { useAppDispatch } from '../redux/hooks/hooks';
+import { setCategory } from '../redux/slices/categorySlice';
 
 const Navbar = () => {
-
+    const dispatch = useAppDispatch()
     const [selectedCategory, setSelectedCategory] = useState<string>('')
 
 
     const { data: categories } = useGetAllCategoriesQuery();
-    if (!categories) return
+    if (!categories) return null;
 
     const displayCategories = categories.genres.slice(0, 4)
     const otherCategories = categories.genres.slice(4, categories.genres.length)
+
+    const handleCategoryChange = (categoryId : string) => {
+        setSelectedCategory(categoryId);
+        dispatch(setCategory(categoryId));
+    };
 
 
     return (
@@ -26,6 +33,7 @@ const Navbar = () => {
                         <li
                             className="relative group cursor-pointer"
                             key={category.id}
+                            onClick={() => handleCategoryChange(category.id.toString())}
                         >
                             {category.name}
                             <UnderlineEffect />
@@ -43,7 +51,7 @@ const Navbar = () => {
                     <MdFavorite size='1.5rem' />
                 </li>
                 <li className='cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-110'>
-                    <IoHome size='1.5rem'/>
+                    <IoHome size='1.5rem' />
                 </li>
             </ul>
         </nav>

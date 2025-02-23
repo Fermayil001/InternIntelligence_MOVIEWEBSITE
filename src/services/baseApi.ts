@@ -13,30 +13,3 @@ export const baseApi = createApi({
     endpoints: () => ({}),
 })
 
-
-
-
-/* 
-
-fetchMovies: build.query<Movie[], { query: string }>(
-            {
-                query: (query) => ({
-                    url: "/search/movie",
-                    params: {
-                        api_key: "YOUR_API_KEY",
-                        query,
-                    },
-                }),
-            }
-        ),
-        fetchMovieDetails: build.query<MovieDetails, { movieId: number }>(
-            {
-                query: ({ movieId }) => ({
-                    url: `/movie/${movieId}`,
-                    params: {
-                        api_key: "YOUR_API_KEY",
-                    },
-                }),
-            }
-        ),
-*/

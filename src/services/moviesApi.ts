@@ -11,9 +11,16 @@ export const moviesApi = baseApi.injectEndpoints({
                 url: "/discover/movie",
             }),
         }),
+        getMoviesByCategory: builder.query({
+            query: ({ genreId }) => ({
+                method: "GET",
+                url: `/discover/movie?with_genres=${genreId}`,
+            }),
+        }),
     }),
 })
 
 export const {
     useGetAllMoviesQuery,
+    useGetMoviesByCategoryQuery
 } = moviesApi;
