@@ -1,2 +1,7 @@
-
 @import "tailwindcss";
+
+.selected {
+    opacity: 0.7;
+    color: rgb(181, 204, 255);
+}
+

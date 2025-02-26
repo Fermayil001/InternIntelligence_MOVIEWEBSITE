@@ -1,29 +1,24 @@
-// src/store/categorySlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Movie } from '../../types/types';
 
 interface CategoryState {
-  categoryId: string | null;
-  movies: any[];  // Filmleri tutacak dizi, gerektiğinde tip belirleyebilirsiniz
+  movies: Movie[] | undefined;
 }
 
 const initialState: CategoryState = {
-  categoryId: null,  // Başlangıçta hiçbir kategori seçili değil
-  movies: [],        // Başlangıçta filmler boş
+  movies: [],
 };
 
 const categorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
-    setCategory: (state, action: PayloadAction<string | null>) => {
-      state.categoryId = action.payload;  // Kategoriyi güncelle
-    },
-    setMovies: (state, action: PayloadAction<any[]>) => {
-      state.movies = action.payload;  // Filmleri güncelle
+    setMovies: (state, action: PayloadAction<Movie[] | undefined>) => {
+      state.movies = action.payload;
     },
   },
 });
 
-export const { setCategory, setMovies } = categorySlice.actions;
+export const { setMovies } = categorySlice.actions;
 
 export default categorySlice.reducer;

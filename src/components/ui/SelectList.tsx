@@ -1,5 +1,6 @@
 import React from 'react';
 import { Genres } from '../../types/types';
+import { useNavigate } from 'react-router-dom';
 
 interface DropdownProps {
     options: Genres[];
@@ -9,8 +10,16 @@ interface DropdownProps {
 
 const SelectList: React.FC<DropdownProps> = ({ options, selectedValue, setSelectedValue }) => {
 
+    const navigate = useNavigate()
+
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedValue(e.target.value);
+        const selectedId = Number(e.target.value);
+        setSelectedValue(selectedId.toString());
+
+        const selectedOption = options.find(option => option.id === selectedId);
+        if (selectedOption) {
+            navigate(`/movies?category=${selectedOption.name}&id=${selectedOption.id}`);
+        }
     };
 
     return (
@@ -21,9 +30,9 @@ const SelectList: React.FC<DropdownProps> = ({ options, selectedValue, setSelect
                 className=
                 "text-sm bg-gray-700 cursor-pointer appearance-none  rounded-md pl-5 py-2 border-none hover:bg-gray-600 transition-all duration-200 ease-in-out focus:ring-0 focus:outline-none"
             >
-                <option value="" disabled hidden>Others</option>
-                {options.map((option, index) => (
-                    <option key={index} value={option.name.toLowerCase()}>
+                <option value="" hidden>Others</option>
+                {options.map((option) => (
+                    <option key={option.id} value={option.id}>
                         {option.name}
                     </option>
                 ))}

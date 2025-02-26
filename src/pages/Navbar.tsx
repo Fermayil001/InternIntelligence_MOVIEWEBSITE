@@ -4,13 +4,17 @@ import { IoHome } from "react-icons/io5";
 import SelectList from '../components/ui/SelectList';
 import { useState } from 'react';
 import UnderlineEffect from '../components/ui/UnderlineEffect';
-import { useAppDispatch } from '../redux/hooks/hooks';
-import { setCategory } from '../redux/slices/categorySlice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Badge } from '@mui/material';
+import { useAppSelector } from '../redux/hooks/hooks';
 
 const Navbar = () => {
-    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
+    const queryParams = new URLSearchParams(location.search);
+    const pathId = queryParams.get("id");
     const [selectedCategory, setSelectedCategory] = useState<string>('')
-
+    const count = useAppSelector(state => state.favCount.count)
 
     const { data: categories } = useGetAllCategoriesQuery();
     if (!categories) return null;
@@ -18,11 +22,10 @@ const Navbar = () => {
     const displayCategories = categories.genres.slice(0, 4)
     const otherCategories = categories.genres.slice(4, categories.genres.length)
 
-    const handleCategoryChange = (categoryId : string) => {
+    const handleCategoryChange = (categoryId: string, categoryName: string) => {
         setSelectedCategory(categoryId);
-        dispatch(setCategory(categoryId));
+        navigate(`/movies?category=${categoryName}&id=${categoryId}`);
     };
-
 
     return (
         <nav className='flex justify-between px-7 pt-1 pb-2 items-center bg-gray-700'>
@@ -31,9 +34,9 @@ const Navbar = () => {
                 {
                     displayCategories.map(category => (
                         <li
-                            className="relative group cursor-pointer"
+                            className={`relative group cursor-pointer ${pathId === category.id.toString() ? 'selected' : ''}`}
                             key={category.id}
-                            onClick={() => handleCategoryChange(category.id.toString())}
+                            onClick={() => handleCategoryChange(category.id.toString(), category.name.toLowerCase())}
                         >
                             {category.name}
                             <UnderlineEffect />
@@ -47,11 +50,16 @@ const Navbar = () => {
                         setSelectedValue={setSelectedCategory}
                     />
                 </li>
-                <li className='cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-110'>
-                    <MdFavorite size='1.5rem' />
+                <li
+                    onClick={() => navigate('/favorites')}
+                    className='cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-110'
+                >
+                    <Badge badgeContent={count} color="warning">
+                        <MdFavorite size='1.5rem' />
+                    </Badge>
                 </li>
-                <li className='cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-110'>
-                    <IoHome size='1.5rem' />
+                <li className='cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-105'>
+                    <IoHome size='1.5rem' onClick={() => { navigate('/') }} />
                 </li>
             </ul>
         </nav>

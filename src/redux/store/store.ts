@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "../../services/baseApi";
 import categoryReducer from '../slices/categorySlice'
+import favCount from '../slices/favCount'
 
 
 export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
-        category: categoryReducer, 
+        category: categoryReducer,
+        favCount: favCount,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(baseApi.middleware),
