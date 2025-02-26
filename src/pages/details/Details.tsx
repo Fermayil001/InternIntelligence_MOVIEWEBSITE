@@ -4,8 +4,7 @@ import { useGetMovieDetailsQuery } from "../../services/moviesApi";
 import { FaStar } from "react-icons/fa";
 import DetailSkelaton from "../../components/ui/DetailSkelaton";
 import AddFavBtn from "../../components/buttons/AddFavBtn";
-
-
+import noImg from '../../assets/images/No_Image_Available.jpg'
 
 const Details = () => {
 
@@ -22,7 +21,10 @@ const Details = () => {
                         <div className="w-1/3">
                             <img
                                 className="w-full aspect-[8/10] bg-cover"
-                                src={`${Base_Url_Img}${movie?.backdrop_path}`}
+                                src={movie?.backdrop_path
+                                    ? `${Base_Url_Img}${movie.backdrop_path}`
+                                    : noImg
+                                }
                                 alt=""
                             />
                         </div>

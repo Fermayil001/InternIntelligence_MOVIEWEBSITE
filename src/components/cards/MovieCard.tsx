@@ -2,6 +2,7 @@ import { Base_Url_Img } from "../../config/apiHelper"
 import { Movie } from "../../types/types"
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import noImg from '../../assets/images/No_Image_Available.jpg'
 
 
 interface MovieCardProps {
@@ -17,7 +18,11 @@ const MovieCard = ({ movie }: MovieCardProps) => {
         <div className="relative">
           <img
             className="rounded-lg w-[100%] h-[100%] cursor-pointer aspect-[7/10] transition-transform duration-500 group-hover:scale-105 group-hover:object-fill group-hover:object-center"
-            src={`${Base_Url_Img}${movie.backdrop_path}`} alt={movie.title}
+            src={movie.backdrop_path
+              ? `${Base_Url_Img}${movie.backdrop_path}`
+              : noImg
+            }
+            alt={movie.title}
           />
           <div className="flex transition-transform duration-500 group-hover:scale-105 items-baseline px-2 w-full justify-between gap-1 font-bold absolute text-amber-400 right-0 bottom-0 pr-2">
             <span>

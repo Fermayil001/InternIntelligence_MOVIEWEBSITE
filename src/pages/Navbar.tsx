@@ -4,7 +4,7 @@ import { IoHome } from "react-icons/io5";
 import SelectList from '../components/ui/SelectList';
 import { useState } from 'react';
 import UnderlineEffect from '../components/ui/UnderlineEffect';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Badge } from '@mui/material';
 import { useAppSelector } from '../redux/hooks/hooks';
 
@@ -29,7 +29,7 @@ const Navbar = () => {
 
     return (
         <nav className='flex justify-between px-7 pt-1 pb-2 items-center bg-gray-700'>
-            <span className="font-bold text-blue-300 text-2xl">MovieLand</span>
+            <Link to="/" className="font-bold text-blue-300 text-2xl">MovieLand</Link>
             <ul className='flex items-center gap-3 text-amber-50 text-sm'>
                 {
                     displayCategories.map(category => (
