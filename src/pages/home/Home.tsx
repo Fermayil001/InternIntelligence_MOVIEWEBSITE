@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <section className="bg-gray-900 min-h-screen px-10 py-5">
-      <div className="flex justify-center relative w-[30%] mx-auto">
+      <div className="flex justify-center relative w-[30%] min-w-78 mx-auto">
         <input
           placeholder="Search movies..."
           value={filterMovies}
@@ -39,7 +39,7 @@ const Home = () => {
         />
         <CiSearch className="absolute right-0 top-0 mt-2 cursor-pointer mr-2 text-xl" />
       </div>
-      <div className="flex flex-wrap w-full gap-x-5 gap-y-7 pt-10">
+      <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 w-full gap-x-4 gap-y-7 pt-10 justify-center">
         {filteredMovies?.length === 0
           ? <div className="text-red-500 h-screen">No movies found for this category.</div>
           : filteredMovies?.map((movie) => (
